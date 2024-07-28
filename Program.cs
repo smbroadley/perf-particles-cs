@@ -27,7 +27,7 @@ void Pretty(string head, object message) {
 }
 void ProfileSystem(string name, Func<IParticleSystem> factory, int frames) {
     Console.WriteLine();
-    Pretty("Running", name);
+    Pretty("Running ", name);
 
     IParticleSystem p;
 
