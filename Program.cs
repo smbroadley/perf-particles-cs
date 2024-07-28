@@ -7,6 +7,10 @@ using System.Diagnostics;
 var frames = 1_000;
 var particles = 10_000;
 
+Console.WriteLine();
+Pretty("Particle Count: ", particles);
+Pretty("Iteration Count: ", frames);
+
 ProfileSystem("Simple", ()=>new SimpleParticles.ParticleSystem(particles), frames);
 ProfileSystem("Simd", ()=>new SimdParticles.ParticleSystem(particles), frames);
 
@@ -14,13 +18,16 @@ ProfileSystem("Simd", ()=>new SimdParticles.ParticleSystem(particles), frames);
 // T Y P E   D E F I N I T I O N S
 // ----------------------------------
 
+void Pretty(string head, object message) {
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write(head);
+    Console.ForegroundColor = ConsoleColor.Green;
+    Console.WriteLine(message);
+    Console.ForegroundColor = ConsoleColor.Gray;
+}
 void ProfileSystem(string name, Func<IParticleSystem> factory, int frames) {
     Console.WriteLine();
-    Console.ForegroundColor = ConsoleColor.Gray;
-    Console.Write("Running ");
-    Console.ForegroundColor = ConsoleColor.Green;
-    Console.WriteLine(name);
-    Console.ForegroundColor = ConsoleColor.Gray;
+    Pretty("Running", name);
 
     IParticleSystem p;
 
