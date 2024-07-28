@@ -50,22 +50,26 @@ namespace SimpleParticles {
         public ParticleSystem(int count) {
             foreach( var i in Enumerable.Range(0, count) ) {
                 var p = new Particle();
-                p.vel.Random(-1, 1);
+                p.vel.Random(1, 1);
                 this.particles.Add(p);
             }
         }
 
-        public void Update(float dt) {
-            // Console.Write($" [{this.particles[0].pos.x}, {this.particles[0].pos.y}, {this.particles[0].pos.z}]");
+        #region IParticleSystem
 
+        public void Update(float dt) {
             for( var i = 0; i < this.particles.Count; i++ ) {
                 var p = this.particles[i];
                 p.pos += p.vel * dt;
                 this.particles[i] = p;
             }
-
-            // Console.Write($" + [{this.particles[0].vel.x}, {this.particles[0].vel.y}, {this.particles[0].vel.z}]");
-            // Console.WriteLine($" == [{this.particles[0].pos.x}, {this.particles[0].pos.y}, {this.particles[0].pos.z}]");
         }
+
+        public (float, float, float) GetPosition(int index) {
+            var p = this.particles[index];
+            return (p.pos.x, p.pos.y, p.pos.z);
+        }
+
+        #endregion IParticleSystem
     }
 }
